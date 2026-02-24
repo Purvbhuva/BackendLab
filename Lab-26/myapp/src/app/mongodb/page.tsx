@@ -24,6 +24,7 @@ function page() {
               <th scope="col">First</th>
               <th scope="col">Last</th>
               <th scope="col">City</th>
+              <th scope="col">Actions</th>
             </tr>
           </thead>
           <tbody>
@@ -37,7 +38,7 @@ function page() {
             {data.map((d:any)=>{
                 return(
                     <tr key={d._id}>
-                    
+                <td>{d._id}</td>    
                 <td>{d.First}</td>
                 <td>{d.Last} </td>
                 <td>{d.City} </td>

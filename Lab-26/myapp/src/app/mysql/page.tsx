@@ -1,8 +1,10 @@
 "use client"
+import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
 
 function page() {
 
+  const router=useRouter();
   const [data,setData]=useState<any>([]);
 
   const fetchData=async()=>{
@@ -27,6 +29,7 @@ function page() {
             <th scope="col">Email</th>
             <th scope="col">Phone</th>
             <th scope="col">Role</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -38,6 +41,7 @@ function page() {
                 <td>{user.email}</td>
                 <td>{user.phone}</td>
                 <td>{user.role}</td>
+                <td><button onClick={()=>{router.push(`/mysql/${user.id}`)}}>view more</button></td>
               </tr>
             
           ))}
