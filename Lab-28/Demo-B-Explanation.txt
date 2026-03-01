@@ -1,0 +1,111 @@
+LAB 28 - DEMO B (Server Action in Separate File)
+=================================================
+
+Route:
+- /demo-b
+
+Main purpose of this demo:
+- Teach students how to structure Server Actions for medium/large projects.
+- Show separation of concerns: UI in one file, server logic in another file.
+- Explain why this pattern is preferred over inline actions as app size grows.
+
+Where to look:
+- app/demo-b/page.tsx      (form UI)
+- app/demo-b/actions.ts    (server-side functions)
+
+Big idea this demo is trying to say:
+- "Server Actions are not only a feature, they are also an architecture decision."
+- Instead of keeping everything in page file, we move server behavior to actions.ts.
+- This makes code easier to read, test, reuse, and maintain.
+
+------------------------------------------------------------
+CLIENT SIDE vs SERVER SIDE (teaching view)
+------------------------------------------------------------
+
+Client side (browser + UI layer):
+- Renders form fields and submit button.
+- Collects user input.
+- Binds form submit to imported action function.
+
+Server side (actions.ts):
+- Receives FormData payload.
+- Extracts fields and processes them.
+- Logs/handles business data in trusted environment.
+
+Important boundary message:
+- page.tsx describes "how user interacts".
+- actions.ts describes "what server does with submitted data".
+- This boundary gives cleaner team collaboration (frontend vs backend responsibilities).
+
+------------------------------------------------------------
+STEP-BY-STEP REQUEST LIFECYCLE
+------------------------------------------------------------
+
+1) User opens /demo-b.
+2) Form renders from page.tsx.
+3) User fills firstName, lastName, age, country, bio.
+4) User submits form.
+5) <form action={submitUserData}> triggers imported action.
+6) Next.js calls submitUserData(formData) on server.
+7) Server extracts values using formData.get(...).
+8) Server logs data and returns processed result.
+
+Note for students:
+- Imported action still runs on server because file has 'use server'.
+- Importing it in UI does NOT make it client code.
+
+------------------------------------------------------------
+WHY SEPARATE FILE IS IMPORTANT
+------------------------------------------------------------
+
+Benefits:
+- Better readability: page file is not overloaded with business logic.
+- Better reusability: same action can be reused by other components/pages.
+- Better maintainability: easier updates and bug fixing.
+- Better onboarding: new developers find logic faster.
+
+Classroom analogy:
+- page.tsx = front desk (collects form)
+- actions.ts = office processor (handles submitted data)
+
+------------------------------------------------------------
+NO CUSTOM API ENDPOINT REQUIRED
+------------------------------------------------------------
+
+Traditional architecture:
+- form -> fetch('/api/...') -> endpoint handler -> process data
+
+This demo architecture:
+- form -> Server Action directly -> process data
+
+Result:
+- Less boilerplate
+- Faster development
+- Still server-secure
+
+------------------------------------------------------------
+TEACHING SCRIPT (LIVE DEMO)
+------------------------------------------------------------
+
+1) Show both files side-by-side: page.tsx and actions.ts.
+2) Ask: "Where is UI? Where is server logic?"
+3) Submit form and show terminal logs.
+4) Add one more exported action in actions.ts (example: logActivity).
+5) Explain how multiple actions can coexist in same server module.
+
+------------------------------------------------------------
+KEY CONCEPTS TO REPEAT IN CLASS
+------------------------------------------------------------
+
+- 'use server' at top of file marks module as server-only actions.
+- Form action can reference imported server function.
+- Separation of concerns improves project quality.
+- This pattern scales better than inline action pattern.
+
+------------------------------------------------------------
+SHORT SUMMARY
+------------------------------------------------------------
+
+Demo B teaches production-style organization: keep form UI in page file and
+move server work to actions.ts. Students learn that Server Actions are not just
+about functionality, but also about clean architecture and maintainability.

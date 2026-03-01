@@ -1,14 +1,15 @@
 import mongoose from 'mongoose'
-const connection =async()=>{
-    try{
-        if(mongoose.connection.readyState>=1){
+
+const connection = async () => {
+    try {
+        if (mongoose.connection.readyState >= 1) {
             return;
         }
-        await mongoose.connect(process.env.mongourl!)
-        console.log("connected to db");
-    }catch(err){
-        console.log(err);
         
+        await mongoose.connect(process.env.MONGOURL!)
+        console.log("Connected to MongoDB database");
+    } catch (err) {
+        console.log("MongoDB Connection Error:", err);
     }
 }
 

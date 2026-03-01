@@ -8,11 +8,15 @@ function page() {
   const [data,setData]=useState<any>([]);
 
   const fetchData=async()=>{
-    const res=await fetch("/api/users");
-    const data=await res.json();
-    console.log(data);
-    
-    setData(data);
+    try {
+      const res=await fetch("/api/users");
+      const result=await res.json();
+      console.log(result);
+      setData(Array.isArray(result) ? result : []);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+      setData([]);
+    }
   }
 
   useEffect(()=>{

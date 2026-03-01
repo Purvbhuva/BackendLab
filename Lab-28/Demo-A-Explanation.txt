@@ -1,0 +1,129 @@
+LAB 28 - DEMO A (Inline Server Action)
+=======================================
+
+Route:
+- /demo-a
+
+Main purpose of this demo:
+- Teach the student that a form can call SERVER code directly in Next.js.
+- Show that client UI and server logic can exist in the same page file.
+- Demonstrate data flow from browser -> server without writing a separate API route.
+
+Where to look:
+- app/demo-a/page.tsx
+
+Big idea this demo is trying to say:
+- "When user submits a form, Next.js can execute a trusted server function for us."
+- We still write a normal HTML form, but action points to a Server Action function.
+- The function is marked with 'use server', so it runs only on server.
+
+------------------------------------------------------------
+CLIENT SIDE vs SERVER SIDE (teaching view)
+------------------------------------------------------------
+
+Client side (browser):
+- Renders the form inputs and submit button.
+- Collects values from user typing.
+- Sends form payload when submit is clicked.
+- Does NOT execute the server action body.
+
+Server side (Next.js runtime):
+- Receives submitted FormData.
+- Executes handleFormSubmit(formData).
+- Reads values using formData.get(...).
+- Prints values in terminal with console.log.
+
+Important security message for students:
+- Browser is untrusted; users can modify client behavior.
+- Server is trusted; sensitive operations should happen here.
+- Demo A keeps processing on server, not inside browser JS.
+
+------------------------------------------------------------
+STEP-BY-STEP REQUEST LIFECYCLE
+------------------------------------------------------------
+
+1) Page render:
+  - User opens /demo-a.
+  - Browser receives HTML for the form.
+
+2) User input:
+  - User enters name, email, message.
+
+3) Form submit event:
+  - <form action={handleFormSubmit}> is triggered.
+  - Browser sends form fields to Next.js.
+
+4) Server action execution:
+  - Next.js routes submission to handleFormSubmit.
+  - Because of 'use server', function executes on server runtime.
+
+5) Data extraction:
+  - name = formData.get('name')
+  - email = formData.get('email')
+  - message = formData.get('message')
+
+6) Server output:
+  - Terminal prints values and timestamp.
+  - This proves processing happened on server, not browser console.
+
+------------------------------------------------------------
+WHY INLINE SERVER ACTION IN SAME FILE?
+------------------------------------------------------------
+
+Advantages:
+- Very easy for beginners to understand.
+- UI and handling logic are close together.
+- Great for small forms and quick demos.
+
+Limitations (good discussion point):
+- As project grows, file can become large.
+- Reuse is limited compared to separate actions file (Demo B).
+
+------------------------------------------------------------
+NO API ROUTE NEEDED (core teaching point)
+------------------------------------------------------------
+
+Traditional approach:
+- Create /api endpoint
+- Send fetch() from client
+- Parse request manually
+
+This demo approach:
+- Write server function directly
+- Connect it with form action
+- Let Next.js handle wiring
+
+Result:
+- Less boilerplate
+- Cleaner learning path for beginners
+
+------------------------------------------------------------
+WHAT TO SHOW LIVE TO STUDENTS
+------------------------------------------------------------
+
+1) Open /demo-a and fill form.
+2) Submit with different values 2-3 times.
+3) Keep terminal visible and show logs update each submission.
+4) Show that browser console does NOT contain server logs.
+5) Rename one input name attribute temporarily (e.g., name -> fullName)
+  and show formData.get('name') becomes null.
+
+This teaches field-name mapping clearly.
+
+------------------------------------------------------------
+KEY CONCEPTS TO REPEAT IN CLASS
+------------------------------------------------------------
+
+- Server Action = async function that runs on server.
+- 'use server' = execution boundary marker.
+- FormData = container for submitted form fields.
+- Same file action = simplest teaching model.
+- Terminal log = evidence of server-side execution.
+
+------------------------------------------------------------
+SHORT SUMMARY
+------------------------------------------------------------
+
+Demo A proves that Next.js can process form data on the server directly from a form,
+with minimal code and no separate API route. It is the best starting point to explain
+the client/server boundary in Server Actions.
