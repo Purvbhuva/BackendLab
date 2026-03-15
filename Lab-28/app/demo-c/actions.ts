@@ -1,6 +1,5 @@
 'use server'
 
-// Server Action with Form Validation
 
 interface ValidationErrors {
   username?: string
@@ -70,18 +69,7 @@ export async function validateAndSubmitForm(formData: FormData): Promise<FormRes
     console.log('✓ Age valid')
   }
   
-  // Validate Website (optional, but must be valid if provided)
-  if (website && website.trim() !== '') {
-    try {
-      new URL(website)
-      console.log('✓ Website valid')
-    } catch {
-      errors.website = 'Please enter a valid URL (e.g., https://example.com)'
-      console.log('❌ Validation Error: Invalid website URL')
-    }
-  } else {
-    console.log('✓ Website not provided (optional)')
-  }
+
   
   // Validate Password
   if (!password || password.length < 8) {

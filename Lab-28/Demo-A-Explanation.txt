@@ -127,3 +127,13 @@ SHORT SUMMARY
 Demo A proves that Next.js can process form data on the server directly from a form,
 with minimal code and no separate API route. It is the best starting point to explain
 the client/server boundary in Server Actions.
+
+
+
+
+
+
+1. Defining the "Entry Point"
+While the component itself runs on the server to render the HTML, the function handleFormSubmit is intended to be called from the client (the user's browser) when they click "Submit."
+Without 'use server', Next.js treats that function as just another local function. By adding the directive, you are telling Next.js:
+"Expose this specific function as a public HTTP endpoint that the browser can securely POST data to."

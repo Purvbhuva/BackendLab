@@ -49,8 +49,4 @@ export async function submitUserData(formData: FormData): Promise<UserDataResult
   }
 }
 
-export async function logActivity(action: string, details: Record<string, unknown>): Promise<void> {
-  'use server'
-  
-  console.log(`[Activity Log] ${action}:`, details)
-}
+
