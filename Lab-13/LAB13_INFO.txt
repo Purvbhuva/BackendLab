@@ -1,0 +1,51 @@
+Lab 13: Controllers in NestJS
+Date: 15-03-2026
+
+Completed tasks:
+1) Student controller with helloWorld method
+   - File: src/student.controller.ts
+   - Route: GET /students/hello
+   - Response: hello world
+
+2) Student controller with findAll, findOne, insert, update and delete methods
+   - GET /students -> findAll()
+   - GET /students/:id -> findOne(id)
+   - POST /students -> insert(body)
+   - PUT /students/:id -> update(id, body)
+   - DELETE /students/:id -> delete(id)
+
+3) Three different controllers with all above methods
+   - StudentController: /students
+   - TeacherController: /teachers
+   - CourseController: /courses
+
+Each controller includes:
+- helloWorld
+- findAll
+- findOne
+- insert
+- update
+- delete
+
+Project files:
+- package.json
+- tsconfig.json
+- src/main.ts
+- src/app.module.ts
+- src/student.controller.ts
+- src/teacher.controller.ts
+- src/course.controller.ts
+
+How to run:
+1. Open terminal in Lab-13
+2. Run: npm install
+3. Run: npm run start:dev
+4. Open: http://localhost:3000
+
+Sample endpoint tests (PowerShell):
+- Invoke-RestMethod http://localhost:3000/students/hello
+- Invoke-RestMethod http://localhost:3000/students
+- Invoke-RestMethod http://localhost:3000/students/1
+- Invoke-RestMethod -Method POST http://localhost:3000/students -Body '{"name":"Ali"}' -ContentType 'application/json'
+- Invoke-RestMethod -Method PUT http://localhost:3000/students/1 -Body '{"name":"Updated Ali"}' -ContentType 'application/json'
+- Invoke-RestMethod -Method DELETE http://localhost:3000/students/1
