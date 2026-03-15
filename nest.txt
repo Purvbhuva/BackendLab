@@ -1,0 +1,5 @@
+=>creating controller
+nest g controller users
+
+=> creating services
+nest g s users
