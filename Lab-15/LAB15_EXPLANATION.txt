@@ -1,0 +1,38 @@
+LAB 15 - Providers (NestJS)
+
+Objective:
+1) Create StudentService with methods findAll, findOne, insert, update, delete.
+2) Combine StudentController and StudentService in one NestJS app.
+3) Demonstrate module usage in NestJS.
+
+How this project satisfies the task:
+- StudentService is implemented in src/student/student.service.ts.
+  Methods: findAll, findOne, insert, update, delete.
+  All methods return "Hello world" exactly as required.
+
+- StudentController is implemented in src/student/student.controller.ts.
+  It receives StudentService by dependency injection and calls the same methods.
+
+- Module demonstration:
+  a) src/student/student.module.ts defines a feature module.
+     - controllers: [StudentController]
+     - providers: [StudentService]
+     - exports: [StudentService]
+  b) src/app.module.ts imports StudentModule.
+  This shows how a provider is registered inside a module and then used by a controller.
+
+Routes:
+- GET    /student       -> StudentService.findAll()
+- GET    /student/:id   -> StudentService.findOne(id)
+- POST   /student       -> StudentService.insert(body)
+- PATCH  /student/:id   -> StudentService.update(id, body)
+- DELETE /student/:id   -> StudentService.delete(id)
+
+Run steps:
+1) Open terminal in Lab-15 folder.
+2) Install packages: npm install
+3) Development run: npm run start:dev
+
+Expected result:
+Calling any of the above endpoints returns:
+Hello world
