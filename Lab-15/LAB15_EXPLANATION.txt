@@ -1,3 +1,4 @@
+nest g module products
 LAB 15 - Providers (NestJS)
 
 Objective:
